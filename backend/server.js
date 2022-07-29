@@ -3,7 +3,6 @@ const dotenv = require("dotenv").config();
 
 const connectDB = require("./config/db");
 const { errorHandler } = require("./middlewares/errorMiddleware");
-const { notfoundHandler } = require("./middlewares/notfoundMiddleware");
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
@@ -18,8 +17,13 @@ connectDB(); //no need
 
 app.use("/api/users", userRoutes);
 
-//notfound middleware
-app.use(notfoundHandler);
+//notfound url
+app.all("*", (req, res) => {
+  res.json({
+    status: "failure",
+    message: "wrong url",
+  });
+});
 
 //error middleware
 app.use(errorHandler);
