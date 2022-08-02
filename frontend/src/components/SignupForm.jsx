@@ -13,7 +13,7 @@ const SignupForm = () => {
         backgroundRepeat: "noRepeat",
       }}
     >
-      <div class="w-full max-w-xs">
+      <div class="w-full max-w-xs mt-12">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col justify-content items-center">
           <div className="m-4">
             <img src={logo} alt="logo" width={50} height={50} />
@@ -62,8 +62,7 @@ const SignupForm = () => {
           </div>
           <div class="flex items-center justify-between">
             <button
-              class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              style={{ backgroundColor: "#60a4b4" }}
+              class="bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:bg-cyan-800 hover:drop-shadow-xl"
               type="submit"
             >
               Sign Up

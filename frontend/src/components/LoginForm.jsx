@@ -21,15 +21,15 @@ const LoginForm = () => {
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
-              for="username"
+              for="email"
             >
-              Username
+              Email
             </label>
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              id="email"
               type="text"
-              placeholder="Username"
+              placeholder="Email"
             />
           </div>
           <div class="mb-4">
@@ -48,9 +48,8 @@ const LoginForm = () => {
           </div>
           <div class="flex items-center justify-between">
             <button
-              class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              style={{ backgroundColor: "#60a4b4" }}
-              type="submit"
+              class="bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:bg-cyan-800 hover:drop-shadow-xl"
+              type="button"
             >
               Sign In
             </button>
