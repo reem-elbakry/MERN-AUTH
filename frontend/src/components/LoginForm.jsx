@@ -3,6 +3,10 @@ import background from "./../assets/background.jpg";
 import logo from "./../assets/todo.webp";
 
 const LoginForm = () => {
+  const onChangeHandler = (e) => {};
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+  };
   return (
     <div
       className="flex items-center justify-center min-h-screen"
@@ -30,6 +34,8 @@ const LoginForm = () => {
               id="email"
               type="text"
               placeholder="Email"
+              name="email"
+              onChange={onChangeHandler}
             />
           </div>
           <div class="mb-4">
@@ -44,12 +50,15 @@ const LoginForm = () => {
               id="password"
               type="password"
               placeholder="Password"
+              name="password"
+              onChange={onChangeHandler}
             />
           </div>
           <div class="flex items-center justify-between">
             <button
               class="bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:bg-cyan-800 hover:drop-shadow-xl"
               type="button"
+              onSubmit={onSubmitHandler}
             >
               Sign In
             </button>
