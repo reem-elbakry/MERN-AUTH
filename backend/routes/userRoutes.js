@@ -6,6 +6,7 @@ const {
   verify,
   verified,
   forgetPassword,
+  resetPassword,
 } = require("../controllers/userController");
 
 router.post("/signup", register);
@@ -14,5 +15,6 @@ router.get("/email/verify/:userId/:uniqueStr", verify);
 router.get("/email/verified", verified);
 //request >> req >> email & redirect url
 router.post("/forgot-password", forgetPassword);
+router.post("/reset-password", resetPassword);
 
 module.exports = router;
