@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const verificationSchema = mongoose.Schema({
+const passwordResetSchema = mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -8,7 +8,7 @@ const verificationSchema = mongoose.Schema({
     unique: true,
   },
 
-  uniqueStr: {
+  resetStr: {
     type: String,
     required: true,
   },
@@ -20,8 +20,8 @@ const verificationSchema = mongoose.Schema({
 
   expiresAt: {
     type: Date,
-    default: Date.now() + 21600000, //after 6 hours
+    default: Date.now() + 3600000, //after 1 hour
   },
 });
 
-module.exports = mongoose.model("Verification", verificationSchema);
+module.exports = mongoose.model("PasswordReset", passwordResetSchema);

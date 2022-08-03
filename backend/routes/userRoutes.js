@@ -5,11 +5,14 @@ const {
   login,
   verify,
   verified,
+  forgetPassword,
 } = require("../controllers/userController");
 
 router.post("/signup", register);
 router.post("/login", login);
-router.get("/verify/:userId/:uniqueStr", verify);
-router.get("/verified", verified);
+router.get("/email/verify/:userId/:uniqueStr", verify);
+router.get("/email/verified", verified);
+//request >> req >> email & redirect url
+router.post("/forgot-password", forgetPassword);
 
 module.exports = router;

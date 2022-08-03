@@ -2,9 +2,9 @@ const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-const Verification = require("../models/verificationModel");
+const Verification = require("../models/emailVerificationModel");
 
-const sendEmail = asyncHandler(async ({ _id, email }, res) => {
+const sendVerificationEmail = asyncHandler(async ({ _id, email }, res) => {
   //carry the message from source to destination
   const transporter = nodemailer.createTransport({
     host: process.env.HOST,
@@ -57,4 +57,4 @@ const sendEmail = asyncHandler(async ({ _id, email }, res) => {
   }
 });
 
-module.exports = sendEmail;
+module.exports = sendVerificationEmail;

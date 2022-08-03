@@ -1,9 +1,11 @@
 const User = require("../models/userModel");
+const Verification = require("../models/emailVerificationModel");
+const Reset = require("../models/passwordResetModel");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
-const sendEmail = require("../utils/sendEmail");
-const Verification = require("../models/verificationModel");
+const sendVerificationEmail = require("../utils/sendVerificationEmail");
+const sendResetEmail = require("../utils/sendResetEmail");
 const path = require("path");
 
 /*********************************************REGISTER*************************************/
@@ -48,7 +50,7 @@ const register = asyncHandler(async (req, res) => {
       });
 
       if (user) {
-        sendEmail(user, res);
+        sendVerificationEmail(user, res);
       } else {
         throw new Error("An error occurred while creating the user!");
       }
@@ -75,7 +77,7 @@ const verify = asyncHandler(async (req, res) => {
       await User.deleteOne({ _id: userId });
 
       let message = "The link has expired, signup again please!";
-      res.redirect(`/api/users/verified/error=true&message=${message}`);
+      res.redirect(`/api/users/email/verified/error=true&message=${message}`);
     } else {
       //valid record
       //need to check the url data is valid
@@ -97,13 +99,13 @@ const verify = asyncHandler(async (req, res) => {
         //not valid url data
         let message =
           "Invalid verification details passed, check your inbox please!";
-        res.redirect(`/api/users/verified/error=true&message=${message}`);
+        res.redirect(`/api/users/email/verified/error=true&message=${message}`);
       }
     }
   } else {
     let message =
       "Account record doesn't exist or has been already verified, please try signup or login!";
-    res.redirect(`/api/users/verified/error=true&message=${message}`);
+    res.redirect(`/api/users/email/verified/error=true&message=${message}`);
   }
 });
 
@@ -154,9 +156,33 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
+/*********************************************FORGET PASSWORD*************************************/
+
+const forgetPassword = asyncHandler(async (req, res) => {
+  let { email, redirectUrl } = req.body;
+  email = email.trim();
+
+  //check if provided email exists in db
+
+  const user = await User.findOne({ email });
+
+  if (user) {
+    //then check if the user is verified
+    if (user.verified) {
+      //proceed with email to reset password
+      sendResetEmail(user, redirectUrl, res);
+    } else {
+      throw new Error("Email hasn't been verified yet. check your inbox!");
+    }
+  } else {
+    throw new Error("No account with the provided email exists.");
+  }
+});
+
 module.exports = {
   register,
   verify,
   verified,
   login,
+  forgetPassword,
 };
