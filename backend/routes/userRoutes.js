@@ -14,7 +14,7 @@ router.post("/login", login);
 router.get("/email/verify/:userId/:uniqueStr", verify);
 router.get("/email/verified", verified);
 //request >> req >> email & redirect url
-//Send password reset link
+//Send password reset link >> view in react
 router.post("/password-reset", forgetPassword);
 //Reset user password
 router.post("/password-reset/:userId/:resetStr", resetPassword);

@@ -27,13 +27,14 @@ const sendResetEmail = asyncHandler(async ({ _id, email }, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedResetStr = await bcrypt.hash(resetStr, salt);
 
-  /**clear records matching this id in resetPassword collection
+  /**clear record matching this id in resetPassword collection
    * because user can request for multiple password reset at the time
    * so when the user make request >> i get rid of the exists record data
    */
 
   const resetRecord = await PasswordReset.deleteOne({ userId: _id });
 
+  //???? { acknowledged: true, deletedCount: 0 }
   if (resetRecord) {
     //then send the email
     //mail options
@@ -45,7 +46,7 @@ const sendResetEmail = asyncHandler(async ({ _id, email }, res) => {
                <p>Don't worry use the link below to reset it.</p>
                <p>This link <b>expires in 1 hour</b>.</p>
                <p>Press 👉 <a href=${
-                 url + "api/users/email/verify/" + _id + "/" + resetStr
+                 url + "api/users/password-reset/" + _id + "/" + resetStr
                }>here</a> to proceed.</p>`,
     };
 
