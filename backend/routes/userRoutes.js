@@ -14,7 +14,9 @@ router.post("/login", login);
 router.get("/email/verify/:userId/:uniqueStr", verify);
 router.get("/email/verified", verified);
 //request >> req >> email & redirect url
-router.post("/forgot-password", forgetPassword);
-router.post("/reset-password", resetPassword);
+//Send password reset link
+router.post("/password-reset", forgetPassword);
+//Reset user password
+router.post("/password-reset/:userId/:resetStr", resetPassword);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const PasswordReset = require("../models/passwordResetModel");
 
-const sendResetEmail = asyncHandler(async ({ _id, email }, url, res) => {
+const sendResetEmail = asyncHandler(async ({ _id, email }, res) => {
   //carry the message from source to destination
   const transporter = nodemailer.createTransport({
     host: process.env.HOST,
@@ -17,6 +17,8 @@ const sendResetEmail = asyncHandler(async ({ _id, email }, url, res) => {
       pass: process.env.AUTH_PASS,
     },
   });
+
+  const url = process.env.BASE_URL;
 
   //use _id + generated uuid
   const resetStr = uuidv4() + _id;
@@ -43,7 +45,7 @@ const sendResetEmail = asyncHandler(async ({ _id, email }, url, res) => {
                <p>Don't worry use the link below to reset it.</p>
                <p>This link <b>expires in 1 hour</b>.</p>
                <p>Press 👉 <a href=${
-                 url + "/" + _id + "/" + resetStr
+                 url + "api/users/email/verify/" + _id + "/" + resetStr
                }>here</a> to proceed.</p>`,
     };
 

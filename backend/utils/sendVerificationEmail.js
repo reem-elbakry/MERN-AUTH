@@ -7,21 +7,24 @@ const Verification = require("../models/emailVerificationModel");
 const sendVerificationEmail = asyncHandler(async ({ _id, email }, res) => {
   //carry the message from source to destination
   const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
+    host: process.env.HOST, //Simple Mail Transfer Protocol //Outgoing Mail
     service: process.env.SERVICE, //
     port: Number(process.env.EMAIL_PORT),
     secure: Boolean(process.env.SECURE),
     auth: {
-      //
+      //USER TO SEND MAILS
       user: process.env.AUTH_USER,
       pass: process.env.AUTH_PASS,
     },
   });
 
   //url to be used in email
-  const url = process.env.BASE_URL;
+  // const url = process.env.BASE_URL;
+  const url = "http://localhost:5000/";
 
-  //use _id + generated uuid
+  console.log(url);
+
+  //use _id + generated uuid <<Universal Unique Identifier>>
   const uniqueStr = uuidv4() + _id;
 
   //hash the uniqueStr
@@ -36,7 +39,7 @@ const sendVerificationEmail = asyncHandler(async ({ _id, email }, res) => {
     html: `<p>Verify your email address to complete the signup and login to your account.</p>
                <p>This link <b>expires in 1 hour</b>.</p>
                <p>Press 👉 <a href=${
-                 url + "api/users/verify/" + _id + "/" + uniqueStr
+                 url + "api/users/email/verify/" + _id + "/" + uniqueStr
                }>here</a> to proceed.</p>`,
   };
 

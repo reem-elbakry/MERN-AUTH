@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
 import background from "./../assets/background.jpg";
 import logo from "./../assets/todo.webp";
@@ -107,6 +107,11 @@ const LoginForm = () => {
             >
               Sign In
             </button>
+          </div>
+          <div className="flex items-center justify-between">
+            <Link to="" className="text-gray-500 mt-2 hover:text-gray-700">
+              Forgot your password?
+            </Link>
           </div>
         </form>
       </div>

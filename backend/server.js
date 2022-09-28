@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 5000;
 
-connectDB(); //no need
+connectDB();
 
 app.use("/api/users", userRoutes);
 

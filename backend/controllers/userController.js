@@ -159,7 +159,7 @@ const login = asyncHandler(async (req, res) => {
 /*********************************************FORGET PASSWORD*************************************/
 
 const forgetPassword = asyncHandler(async (req, res) => {
-  let { email, redirectUrl } = req.body;
+  let { email } = req.body;
   email = email.trim();
 
   //check if provided email exists in db
@@ -170,7 +170,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
     //then check if the user is verified
     if (user.verified) {
       //proceed with email to reset password
-      sendResetEmail(user, redirectUrl, res);
+      sendResetEmail(user, res);
     } else {
       throw new Error("Email hasn't been verified yet. check your inbox!");
     }
